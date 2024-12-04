@@ -44,7 +44,12 @@ int main()
 
     while (getline(fin, inputFileLine)) // read all of the string values from the input file until the end of the file is reached
     {
-        
+        // sending the codes to the gen_hash_index() function as they are being read from the input file
+        // receiving the hash index that is being returned from the function & storing it in a variable
+        int hashIndex = gen_hash_index(inputFileLine);
+        // inputting the pair into the map
+        // using .push_back() to add the string value from the input file to the std::list that corresponds to its generated hash index (which is the key of the map)
+        hash_table[hashIndex].push_back(inputFileLine);
     }
 
     fin.close(); // close the input file
@@ -53,10 +58,11 @@ int main()
 }
 
 // int gen_hash_index(const string stringValue) function header
-// DESCRIPTION: this function receives a single string & returns the sum of that string's character's ASCII values
+// DESCRIPTION: this function receives a single string & returns the total sum of that string's character's ASCII values modulo-ed by a prime #
+// - in short, this function generates a hash index
 // ARGUMENTS: const string stringValue, which represents the string whose characters we want to retrieve the ASCII values for
 // - using const because the string will not be modified in this function
-// RETURNS: int sum, which is the total sum of the string's character's ASCII values
+// RETURNS: int sum % MODULUS_VALUE, which is the generated hash index for the string
 int gen_hash_index(const string stringValue)
 {
     int sum = 0; // to hold the sum of the string's character's ASCII values

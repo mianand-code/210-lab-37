@@ -25,6 +25,10 @@ const int MAP_ENTRY_NUM = 100; // represents the # of map entries that should be
 // function prototypes
 int gen_hash_index(const string);
 void print_map_entries(const map<int, list<string> > hash_table);
+void search_for_key(const map<int, list<string> > hash_table);
+void add_key(map<int, list<string> >& hash_table);
+void remove_key(map<int, list<string> >& hash_table);
+void modify_key(map<int, list<string> >& hash_table);
 
 int main()
 {
@@ -139,6 +143,7 @@ int gen_hash_index(const string stringValue)
 // ARGUMENTS: const map<int, list<string> > hash_table, which is the hash table data structure
 // - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
 // - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
+// - using const because the map itself will not be modified in this function
 // RETURNS: nothing, void function
 void print_map_entries(const map<int, list<string> > hash_table)
 {

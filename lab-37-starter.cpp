@@ -12,20 +12,27 @@ E1D2665B21EA
 
 #include <fstream> // needed for file operations
 #include <iostream>
+#include <list> // needed to use std::list
+#include <map> // needed to use std::map
 #include <string>
 using namespace std;
 
 // declaration & initialization of global const variables
 const string INPUT_FILE_NAME = "lab-37-data.txt"; // to hold the name of the input file, which contains the string data
+const int MODULUS_VALUE = 97; // represents the value that the sum of the ASCII values will be modulo-ed by in the gen_hash_index() function
 
 // function prototypes
-int sum_ascii(const string);
+int gen_hash_index(const string);
 
 int main() 
 {
+    // creation of the hash table data structure
+    // an std::map, in which the key is an int value that represents the hash index
+    // - & the value is an std::list, which will contain the codes from the input file that map to a specific hash index
+    map<int, list<string>> hash_table;
+    
     // declaration & initialization of variables
     string inputFileLine; // to hold a string value from the input file - will be used to read string data from the input file
-    int grandTotal = 0; // represents the sum of all ASCII values in the entire file
 
     ifstream fin(INPUT_FILE_NAME); // creation of an ifstream (input file) object
 
@@ -37,24 +44,20 @@ int main()
 
     while (getline(fin, inputFileLine)) // read all of the string values from the input file until the end of the file is reached
     {
-        // call the sum_ascii() function & apply it to inputFileLine
-        // store the result of the function (the sum of the ASCII values) in a variable named grandTotal, which will keep a running total of the sum of all ASCII values in the entire file
-        grandTotal = grandTotal + sum_ascii(inputFileLine);
+        
     }
 
     fin.close(); // close the input file
 
-    cout << "The grand total (the sum of all ASCII values in the entire file) is equal to " << grandTotal << endl; // output the grand total, which is the sum of all ASCII values in the entire file
-
     return 0;
 }
 
-// int sum_ascii(const string stringValue) function header
+// int gen_hash_index(const string stringValue) function header
 // DESCRIPTION: this function receives a single string & returns the sum of that string's character's ASCII values
 // ARGUMENTS: const string stringValue, which represents the string whose characters we want to retrieve the ASCII values for
 // - using const because the string will not be modified in this function
 // RETURNS: int sum, which is the total sum of the string's character's ASCII values
-int sum_ascii(const string stringValue)
+int gen_hash_index(const string stringValue)
 {
     int sum = 0; // to hold the sum of the string's character's ASCII values
 
@@ -63,5 +66,5 @@ int sum_ascii(const string stringValue)
         // - & a running total of all the ASCII values for each char will be stored in the sum variable
         sum = sum + (int) charValue;
     
-    return sum; // the total sum of the ASCII values will be returned from the function
+    return sum % MODULUS_VALUE; // the total sum of the ASCII values (modulo-ed by 97 (MODULUS_VALUE), a prime #) will be returned from the function
 }

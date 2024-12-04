@@ -44,7 +44,7 @@ int main()
 
     fin.close(); // close the input file
 
-    cout << "The grand total (the sum of all ASCII values in the entire file) is equal to " << testResult << endl; // output the grand total, which is the sum of all ASCII values in the entire file
+    cout << "The grand total (the sum of all ASCII values in the entire file) is equal to " << grandTotal << endl; // output the grand total, which is the sum of all ASCII values in the entire file
 
     return 0;
 }

@@ -1,5 +1,5 @@
-// COMSC-210 | Lab 37 | Mira Anand
-// Module 15, Lesson: Hash Tables, Assignment: Hash Table I
+// COMSC-210 | Lab 38 | Mira Anand
+// Module 15, Lesson: Hash Tables, Assignment: Hash Tables II
 // IDE used: Visual Studio Code for Mac
 
 /* 

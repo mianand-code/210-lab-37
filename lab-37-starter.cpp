@@ -35,6 +35,7 @@ int main()
     
     // declaration & initialization of variables section
     string inputFileLine; // to hold a string value/code from the input file - will be used to read string data from the input file
+    int userChoiceMenuNum; // to hold the user's choice for the menu option # they would like to select
 
     ifstream fin(INPUT_FILE_NAME); // creation of an ifstream (input file) object
 
@@ -55,6 +56,59 @@ int main()
     }
 
     fin.close(); // close the input file
+
+    // creation of an interactive menu with new features
+    do  // creation of a do-while loop so that the user can continue to select options until they wish to quit
+    {
+        // output the menu of choices that the user can select from
+        cout << endl << "Hash Table Menu:" << endl;
+        cout << "[1] Print the first 100 map entries" << endl;
+        cout << "[2] Search for a key" << endl;
+        cout << "[3] Add a key" << endl;
+        cout << "[4] Remove a key" << endl;
+        cout << "[5] Modify a key" << endl;
+        cout << "[6] Exit" << endl;
+        cout << endl;
+
+        // user input for menu option # they would like to choose
+        cout << "Enter your choice: "; 
+        cin >> userChoiceMenuNum;
+        cin.ignore(); // needed before reading string user input
+
+        // creation of a switch statement that handles cases of each numbered option based on userChoiceMenuNum
+        switch (userChoiceMenuNum)
+        {
+            case 1:
+                print_map_entries(hash_table); // print_map_entries() function call, will print the first 100 map (hash_table) entries
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+
+                break;
+
+            case 4:
+
+                break;
+
+            case 5:
+
+                break;
+            
+            // menu option #6 means the user wants to exit the program
+            case 6:
+                cout << "Thank you for using this program. Now exiting..." << endl;
+                break;
+            
+            // user input validation for menu option # (has to be 1-6)
+            default:
+                cout << "ERROR: Invalid entry. Please enter a valid menu option number (1-6) and try again." << endl;
+        }
+
+    } while (userChoiceMenuNum != 6); // userChoiceMenuNum = 6 means user wants to quit program
 
     return 0;
 }

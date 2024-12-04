@@ -24,8 +24,9 @@ const int MAP_ENTRY_NUM = 100; // represents the # of map entries that should be
 
 // function prototypes
 int gen_hash_index(const string);
+void print_map_entries(const map<int, list<string> > hash_table);
 
-int main() 
+int main()
 {
     // creation of the hash table data structure
     // this is an std::map, in which the key is an int value that represents the hash index
@@ -34,7 +35,6 @@ int main()
     
     // declaration & initialization of variables section
     string inputFileLine; // to hold a string value/code from the input file - will be used to read string data from the input file
-    int mapEntryCounter = 0; // to keep a track of the map entries being displayed to the console
 
     ifstream fin(INPUT_FILE_NAME); // creation of an ifstream (input file) object
 
@@ -55,25 +55,6 @@ int main()
     }
 
     fin.close(); // close the input file
-
-    // display the first 100 map entries to the console
-    for (auto mapEntry : hash_table) // using a range-based for loop to iterate through the map
-    {
-        cout << endl;
-        cout << "Hash index: " << mapEntry.first << endl; // use .first to access & output the hash index (key)
-        cout << "Values: ";
-        
-        for (auto value : mapEntry.second) // using another range-based for loop to access/iterate though the std::lists (string values/codes) associated with the hash index by using .second
-        {
-            cout << value << " "; // output the string values/codes associated with the hash index/key
-        }
-
-        cout << endl;
-        mapEntryCounter++; // increment the counter, to keep a correct track of the # of map entries being displayed
-
-        if (mapEntryCounter == MAP_ENTRY_NUM) // only display the first 100 (MAP_ENTRY_NUM) map entries and then break from the loop
-            break;
-    }
 
     return 0;
 }
@@ -96,4 +77,35 @@ int gen_hash_index(const string stringValue)
     // the total sum of the string's ASCII values (modulo-ed by 100003 (MODULUS_VALUE), a prime #) will be returned from the function
     // in other words, the generated hash index for the string will be returned from the function
     return sum % MODULUS_VALUE;
+}
+
+// void print_map_entries(const map<int, list<string> > hash_table) function header
+// DESCRIPTION: this function will display the first 100 map (hash_table) entries to the console
+// - output will include hash indexes (keys) along with their associated values (strings/codes)
+// ARGUMENTS: const map<int, list<string> > hash_table, which is the hash table data structure
+// - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
+// - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
+// RETURNS: nothing, void function
+void print_map_entries(const map<int, list<string> > hash_table)
+{
+    int mapEntryCounter = 0; // to keep a track of the map entries being displayed to the console
+
+    // display the first 100 map entries to the console
+    for (auto mapEntry : hash_table) // using a range-based for loop to iterate through the map
+    {
+        cout << endl;
+        cout << "Hash index: " << mapEntry.first << endl; // use .first to access & output the hash index (key)
+        cout << "Values: ";
+        
+        for (auto value : mapEntry.second) // using another range-based for loop to access/iterate though the std::lists (string values/codes) associated with the hash index by using .second
+        {
+            cout << value << " "; // output the string values/codes associated with the hash index/key
+        }
+
+        cout << endl;
+        mapEntryCounter++; // increment the counter, to keep a correct track of the # of map entries being displayed
+
+        if (mapEntryCounter == MAP_ENTRY_NUM) // only display the first 100 (MAP_ENTRY_NUM) map entries and then break from the loop
+            break;
+    }
 }

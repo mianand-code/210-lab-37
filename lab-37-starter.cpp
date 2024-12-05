@@ -102,7 +102,7 @@ int main()
                 break;
 
             case 5:
-
+                modify_key(hash_table); // modify_key() function call, will allow the user to enter information to modify a key that exists in the hash table data structure
                 break;
             
             // menu option #6 means the user wants to exit the program
@@ -260,6 +260,38 @@ void add_key(map<int, list<string> >& hash_table)
 // - passing by reference because the map will be modified in this function
 // RETURNS: nothing, void function
 void remove_key(map<int, list<string> >& hash_table)
+{
+    string userKey; // will hold user input for the key they would like to remove
+    // get user input - input validation is included to ensure the user does not leave the field blank
+    do
+    {
+        cout << "Enter the key you would like to remove: ";
+        getline(cin, userKey);
+
+        if (userKey.empty())
+        {
+            cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
+        }
+    } while (userKey.empty());
+
+    int hashIndex = gen_hash_index(userKey); // gen_hash_index() function call, to generate the hash index for the user-entered key & store that hash index in a variable
+    auto it = hash_table.find(hashIndex); // creation of an iterator to find/point to the generated hash index, using .find to accomplish this
+
+    if (it == hash_table.end()) // if the iterator reaches the end of the hash table, this means that the hash index was not found & the user-entered key does not exist within the hash table
+    {
+        cout << "The key was not found. Removal cannot be performed." << endl;
+        return; // exit the function at this point
+    }
+}
+
+// void modify_key(map<int, list<string> >& hash_table) function header
+// DESCRIPTION: this function will allow the user to modify a key (string/code) in the hash table
+// ARGUMENTS: map<int, list<string> >& hash_table, which is the hash table data structure
+// - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
+// - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
+// - passing by reference because the map will be modified in this function
+// RETURNS: nothing, void function
+void modify_key(map<int, list<string> >& hash_table)
 {
 
 }

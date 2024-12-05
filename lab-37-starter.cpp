@@ -90,11 +90,11 @@ int main()
                 break;
 
             case 2:
-
+                search_for_key(hash_table); // search_for_key() function call, will search for a user-entered key within the hash table data structure
                 break;
 
             case 3:
-
+                add_key(hash_table); // add_key() function call, will allow the user to enter a key that they would like to add to the hash table data structure
                 break;
 
             case 4:
@@ -217,6 +217,31 @@ void search_for_key(const map<int, list<string> > hash_table)
         }
     }
 
-    if (!keyFound) // if the bool flag is still false at this point, the key has not been found
+    // if the bool flag is still false at this point, the key has not been found
+    // this handles a case where a hash index might be found for a user-entered key, but the key was not found in the list associated with the hash index
+    if (!keyFound)
         cout << "The key was not found." << endl;
+}
+
+// void add_key(map<int, list<string> >& hash_table) function header
+// DESCRIPTION: this function will allow the user to add a key (string/code) to the hash table
+// ARGUMENTS: map<int, list<string> >& hash_table, which is the hash table data structure
+// - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
+// - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
+// - passing by reference because the map will be modified in this function
+// RETURNS: nothing, void function
+void add_key(map<int, list<string> >& hash_table)
+{
+    string userKey; // will hold user input for the key they would like to add
+    // get user input - input validation is included to ensure the user does not leave the field blank
+    do
+    {
+        cout << "Enter the key that you would like to add: ";
+        getline(cin, userKey);
+
+        if (userKey.empty())
+        {
+            cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
+        }
+    } while (userKey.empty());
 }

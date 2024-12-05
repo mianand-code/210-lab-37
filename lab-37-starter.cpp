@@ -98,7 +98,7 @@ int main()
                 break;
 
             case 4:
-
+                remove_key(hash_table); // remove_key() function call, will allow the user to enter a key that they would like to remove from the hash table data structure
                 break;
 
             case 5:
@@ -244,4 +244,22 @@ void add_key(map<int, list<string> >& hash_table)
             cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
         }
     } while (userKey.empty());
+
+    int hashIndex = gen_hash_index(userKey); // gen_hash_index() function call, to generate the hash index for the user-entered key & store that hash index in a variable
+    // using .push_back() to add the user-entered key to the std::list that corresponds to its generated hash index
+    hash_table[hashIndex].push_back(userKey);
+
+    cout << "The key has been added." << endl;
+}
+
+// void remove_key(map<int, list<string> >& hash_table) function header
+// DESCRIPTION: this function will allow the user to remove a key (string/code) from the hash table
+// ARGUMENTS: map<int, list<string> >& hash_table, which is the hash table data structure
+// - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
+// - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
+// - passing by reference because the map will be modified in this function
+// RETURNS: nothing, void function
+void remove_key(map<int, list<string> >& hash_table)
+{
+
 }

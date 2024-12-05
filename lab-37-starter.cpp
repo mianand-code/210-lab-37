@@ -2,6 +2,8 @@
 // Module 15, Lesson: Hash Tables, Assignment: Hash Tables II
 // IDE used: Visual Studio Code for Mac
 
+// Note: The program trusts that the user will enter strings/codes exactly the same as how they are listed in the input file in order to achieve accurate results when removing, searching for, and modifying keys
+
 /* 
 These targets are present in the dataset and can be used for testing:
 536B9DFC93AF
@@ -80,6 +82,7 @@ int main()
         cin.ignore(); // needed before reading string user input
 
         // creation of a switch statement that handles cases of each numbered option based on userChoiceMenuNum
+        // cases 2-5 include user input validation within their respective functions, to ensure that a user does not leave a field blank. Further input validation is not needed, since a key can consist of any combination of letters/numbers
         switch (userChoiceMenuNum)
         {
             case 1:
@@ -167,4 +170,29 @@ void print_map_entries(const map<int, list<string> > hash_table)
         if (mapEntryCounter == MAP_ENTRY_NUM) // only display the first 100 (MAP_ENTRY_NUM) map entries and then break from the loop
             break;
     }
+}
+
+// void search_for_key(const map<int, list<string> > hash_table) function header
+// DESCRIPTION: this function will take a user-entered key (string/code) and search for it in the map
+// - the user will be notified if the key was found or not
+// ARGUMENTS: const map<int, list<string> > hash_table, which is the hash table data structure
+// - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
+// - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
+// - using const because the map itself will not be modified in this function
+// RETURNS: nothing, void function
+void search_for_key(const map<int, list<string> > hash_table)
+{
+    string userKey; // will hold user input for the key they would like to search for
+
+    // get user input - input validation is included to ensure the user does not leave the field blank
+    do
+    {
+        cout << "Enter the key you would like to search for: ";
+        getline(cin, userKey);
+
+        if (userKey.empty())
+        {
+            cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
+        }
+    } while (userKey.empty());
 }

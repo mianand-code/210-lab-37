@@ -195,4 +195,13 @@ void search_for_key(const map<int, list<string> > hash_table)
             cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
         }
     } while (userKey.empty());
+
+    int hashIndex = gen_hash_index(userKey); // gen_hash_index() function call, to generate the hash index for the user-entered key & store that hash index in a variable
+
+    auto it = hash_table.find(hashIndex); // creation of an iterator to find/point to the generated hash index, using .find to accomplish this
+
+    if (it == hash_table.end()) // if the hash index was not found, the user-entered key does not exi
+    {
+
+    }
 }

@@ -183,7 +183,6 @@ void print_map_entries(const map<int, list<string> > hash_table)
 void search_for_key(const map<int, list<string> > hash_table)
 {
     string userKey; // will hold user input for the key they would like to search for
-
     // get user input - input validation is included to ensure the user does not leave the field blank
     do
     {
@@ -197,11 +196,27 @@ void search_for_key(const map<int, list<string> > hash_table)
     } while (userKey.empty());
 
     int hashIndex = gen_hash_index(userKey); // gen_hash_index() function call, to generate the hash index for the user-entered key & store that hash index in a variable
-
     auto it = hash_table.find(hashIndex); // creation of an iterator to find/point to the generated hash index, using .find to accomplish this
 
-    if (it == hash_table.end()) // if the hash index was not found, the user-entered key does not exi
+    if (it == hash_table.end()) // if the iterator reaches the end of the hash table, this means that the hash index was not found & the user-entered key does not exist within the hash table
     {
-
+        cout << "The key was not found." << endl;
+        return; // exit the function at this point
     }
+
+    auto keyList = it->second; // access the list of strings/codes that are associated with the generated/found hash index, by using second
+    bool keyFound = false; // creation of a bool to keep track of whether the key was found or not, setting it to false to start with
+
+    for (auto key : keyList) // creation of a range-based for loop to traverse the list of strings/codes
+    {
+        if (key == userKey) // if the user-entered key matches a string/code in the list
+        {
+            cout << "The key has been found with a hash index of " << hashIndex << endl;
+            keyFound = true; // set the bool flag to true, to indicate that the key being searched for has been found
+            break; // exit the loop since the key has been found
+        }
+    }
+
+    if (!keyFound) // if the bool flag is still false at this point, the key has not been found
+        cout << "The key was not found." << endl;
 }

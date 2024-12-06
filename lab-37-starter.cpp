@@ -282,6 +282,39 @@ void remove_key(map<int, list<string> >& hash_table)
         cout << "The key was not found. Removal cannot be performed." << endl;
         return; // exit the function at this point
     }
+
+    // access the list of strings/codes that are associated with the generated/found hash index, by using second
+    // - using auto& because the list will be modified if the key is present
+    auto& keyList = it->second;
+    bool keyFound = false; // creation of a bool to keep track of whether the key was found or not, setting it to false to start with
+
+    for (auto key : keyList) // creation of a range-based for loop to traverse the list of strings/codes
+    {
+        if (key == userKey) // if the user-entered key matches a string/code in the list
+        {
+            cout << "The key has been found. Removal in progress..." << endl;
+            keyFound = true; // set the bool flag to true, to indicate that the key wanting to be removed for has been found
+            break; // exit the loop since the key has been found
+        }
+    }
+
+    // if the bool flag is still false at this point, the key has not been found and therefore cannot be removed
+    // this handles a case where a hash index might be found for a user-entered key, but the key was not found in the list associated with the hash index
+    if (!keyFound)
+    {
+        cout << "The key was not found. Removal cannot be performed." << endl;
+        return; // exit function since removal cannot be performed
+    }
+
+    keyList.remove(userKey); // use .remove to remove the user-entered key from the list that corresponds to the generated hash index
+    cout << "The key has been removed." << endl;
+
+    // if the list is empty after key removal, this means we have to erase the hash index too, since no values are associated with it anymore
+    if (keyList.empty())
+    {
+        hash_table.erase(it); // use .erase to erase the hash index if the list is empty - this extra step ensures clean removal of the map key-value pairs
+        cout << "The hash index has also been removed, since there are no values associated with it." << endl;
+    }
 }
 
 // void modify_key(map<int, list<string> >& hash_table) function header

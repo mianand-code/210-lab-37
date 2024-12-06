@@ -319,6 +319,7 @@ void remove_key(map<int, list<string> >& hash_table)
 
 // void modify_key(map<int, list<string> >& hash_table) function header
 // DESCRIPTION: this function will allow the user to modify a key (string/code) in the hash table
+// - modification occurs by first removing the old key & then adding the new one
 // ARGUMENTS: map<int, list<string> >& hash_table, which is the hash table data structure
 // - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
 // - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
@@ -353,7 +354,6 @@ void modify_key(map<int, list<string> >& hash_table)
     // access the list of strings/codes that are associated with the generated/found hash index, by using second
     // - using auto& because the list will be modified if the key is present
     auto& keyList = it->second;
-
     bool keyFound = false; // creation of a bool to keep track of whether the key was found or not, setting it to false to start with
 
     for (auto key : keyList) // creation of a range-based for loop to traverse the list of strings/codes
@@ -374,7 +374,9 @@ void modify_key(map<int, list<string> >& hash_table)
         return; // exit function since modification cannot be performed
     }
 
-    // if we reach this point, that means that the key was found, so we need to get user input for the new modified key they want to add
+    keyList.remove(userKey); // if we reach this point, that means that the key was found, so we start the modification process by removing the user-entered key from the list
+
+    // get user input for the new modified key they want to add
     // input validation is included to ensure the user does not leave the field blank
     do
     {
@@ -387,13 +389,8 @@ void modify_key(map<int, list<string> >& hash_table)
         }
     } while (userNewKey.empty());
     
-    for (auto key : keyList) // creation of a range-based for loop to traverse the list of strings/codes
-    {
-        if (key == userKey) // if the user-entered key matches the string/code in the list
-        {
-            userKey = userNewKey; // modify the key according to the user's input
-            cout << "The key has been modified." << endl;
-            break; 
-        }
-    }
+    int newKeyHashIndex = gen_hash_index(userNewKey); // gen_hash_index() function call, to generate a fresh hash index for the new modified key that the user has entered - store that in a variable
+    hash_table[newKeyHashIndex].push_back(userNewKey); // using .push_back() to add the user-entered key to the std::list that corresponds to its generated hash index
+
+    cout << "The key has been modified." << endl;
 }

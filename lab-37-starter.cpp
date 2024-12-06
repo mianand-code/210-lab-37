@@ -327,7 +327,7 @@ void remove_key(map<int, list<string> >& hash_table)
 void modify_key(map<int, list<string> >& hash_table)
 {
     string userKey; // will hold user input for the key they would like to modify
-    string newUserKey; // will hold user input for the new modified key they want to add
+    string userNewKey; // will hold user input for the new modified key they want to add
 
     // get user input - input validation is included to ensure the user does not leave the field blank
     do
@@ -354,22 +354,44 @@ void modify_key(map<int, list<string> >& hash_table)
     // - using auto& because the list will be modified if the key is present
     auto& keyList = it->second;
 
+    bool keyFound = false; // creation of a bool to keep track of whether the key was found or not, setting it to false to start with
+
     for (auto key : keyList) // creation of a range-based for loop to traverse the list of strings/codes
     {
         if (key == userKey) // if the user-entered key matches a string/code in the list
         {
-            // this means the key was found, so we need to get user input for the new modified key they want to add
-            // input validation is included to ensure the user does not leave the field blank
-            do
-            {
-                cout << "Enter the new: ";
-                getline(cin, userKey);
+            cout << "The key has been successfully found & modification can occur..." << endl;
+            keyFound = true; // set the bool flag to true, to indicate that the key wanting to be removed for has been found
+            break; // exit the loop since the key has been found
+        }
+    }
 
-                if (userKey.empty())
-                {
-                    cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
-                }
-            } while (userKey.empty());
+    // if the bool flag is still false at this point, the key has not been found and therefore cannot be modified
+    // this handles a case where a hash index might be found for a user-entered key, but the key was not found in the list associated with the hash index
+    if (!keyFound)
+    {
+        cout << "The key was not found. Modification cannot be performed." << endl;
+        return; // exit function since modification cannot be performed
+    }
+
+    // if we reach this point, that means that the key was found, so we need to get user input for the new modified key they want to add
+    // input validation is included to ensure the user does not leave the field blank
+    do
+    {
+        cout << "Enter the new modified key you would like to add: ";
+        getline(cin, userNewKey);
+
+        if (userNewKey.empty())
+        {
+            cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
+        }
+    } while (userNewKey.empty());
+    
+    for (auto key : keyList) // creation of a range-based for loop to traverse the list of strings/codes
+    {
+        if (key == userKey) // if the user-entered key matches a string/code in the list
+        {
+
         }
     }
 }

@@ -389,9 +389,11 @@ void modify_key(map<int, list<string> >& hash_table)
     
     for (auto key : keyList) // creation of a range-based for loop to traverse the list of strings/codes
     {
-        if (key == userKey) // if the user-entered key matches a string/code in the list
+        if (key == userKey) // if the user-entered key matches the string/code in the list
         {
-
+            userKey = userNewKey; // modify the key according to the user's input
+            cout << "The key has been modified." << endl;
+            break; 
         }
     }
 }

@@ -326,5 +326,50 @@ void remove_key(map<int, list<string> >& hash_table)
 // RETURNS: nothing, void function
 void modify_key(map<int, list<string> >& hash_table)
 {
+    string userKey; // will hold user input for the key they would like to modify
+    string newUserKey; // will hold user input for the new modified key they want to add
 
+    // get user input - input validation is included to ensure the user does not leave the field blank
+    do
+    {
+        cout << "Enter the key you would like to modify: ";
+        getline(cin, userKey);
+
+        if (userKey.empty())
+        {
+            cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
+        }
+    } while (userKey.empty());
+
+    int hashIndex = gen_hash_index(userKey); // gen_hash_index() function call, to generate the hash index for the user-entered key & store that hash index in a variable
+    auto it = hash_table.find(hashIndex); // creation of an iterator to find/point to the generated hash index, using .find to accomplish this
+
+    if (it == hash_table.end()) // if the iterator reaches the end of the hash table, this means that the hash index was not found & the user-entered key does not exist within the hash table
+    {
+        cout << "The key was not found. Modification cannot be performed." << endl;
+        return; // exit the function at this point
+    }
+
+    // access the list of strings/codes that are associated with the generated/found hash index, by using second
+    // - using auto& because the list will be modified if the key is present
+    auto& keyList = it->second;
+
+    for (auto key : keyList) // creation of a range-based for loop to traverse the list of strings/codes
+    {
+        if (key == userKey) // if the user-entered key matches a string/code in the list
+        {
+            // this means the key was found, so we need to get user input for the new modified key they want to add
+            // input validation is included to ensure the user does not leave the field blank
+            do
+            {
+                cout << "Enter the new: ";
+                getline(cin, userKey);
+
+                if (userKey.empty())
+                {
+                    cout << "ERROR: Field cannot remain blank. Please enter a key & try again." << endl;
+                }
+            } while (userKey.empty());
+        }
+    }
 }

@@ -26,20 +26,20 @@ const int MAP_ENTRY_NUM = 100; // represents the # of map entries that should be
 
 // function prototypes
 int gen_hash_index(const string);
-void print_map_entries(const map<int, list<string> > hash_table);
-void search_for_key(const map<int, list<string> > hash_table);
-void add_key(map<int, list<string> >& hash_table);
-void remove_key(map<int, list<string> >& hash_table);
-void modify_key(map<int, list<string> >& hash_table);
+void print_map_entries(const map<int, list<string>> hash_table);
+void search_for_key(const map<int, list<string>> hash_table);
+void add_key(map<int, list<string>>& hash_table);
+void remove_key(map<int, list<string>>& hash_table);
+void modify_key(map<int, list<string>>& hash_table);
 
 int main()
 {
     // creation of the hash table data structure
     // this is an std::map, in which the key is an int value that represents the hash index
-    // the value is an std::list, which will contain the string data/codes from the input file that map to a specific hash index
-    map<int, list<string> > hash_table;
+    // the value is an std::list, which will contain the string data/codes from the input file that will map to a specific hash index
+    map<int, list<string>> hash_table;
     
-    // declaration & initialization of variables section
+    // declaration of variables section
     string inputFileLine; // to hold a string value/code from the input file - will be used to read string data from the input file
     int userChoiceMenuNum; // to hold the user's choice for the menu option # they would like to select
 
@@ -82,7 +82,7 @@ int main()
         cin.ignore(); // needed before reading string user input
 
         // creation of a switch statement that handles cases of each numbered option based on userChoiceMenuNum
-        // cases 2-5 include user input validation within their respective functions, to ensure that a user does not leave a field blank. Further input validation is not needed, since a key can consist of any combination of letters/numbers
+        // cases 2-5 include user input validation within their respective functions, to ensure that a user does not leave a field blank. Further input validation is not needed, since a key string entry can consist of any combination of letters/numbers
         switch (userChoiceMenuNum)
         {
             case 1:
@@ -140,15 +140,15 @@ int gen_hash_index(const string stringValue)
     return sum % MODULUS_VALUE;
 }
 
-// void print_map_entries(const map<int, list<string> > hash_table) function header
+// void print_map_entries(const map<int, list<string>> hash_table) function header
 // DESCRIPTION: this function will display the first 100 map (hash_table) entries to the console
-// - output will include hash indexes (keys) along with their associated values (strings/codes)
-// ARGUMENTS: const map<int, list<string> > hash_table, which is the hash table data structure
+// - output will include each hash index (keys) along with their associated values (strings/codes)
+// ARGUMENTS: const map<int, list<string>> hash_table, which is the hash table data structure
 // - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
 // - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
 // - using const because the map itself will not be modified in this function
 // RETURNS: nothing, void function
-void print_map_entries(const map<int, list<string> > hash_table)
+void print_map_entries(const map<int, list<string>> hash_table)
 {
     int mapEntryCounter = 0; // to keep a track of the map entries being displayed to the console
 
@@ -159,7 +159,7 @@ void print_map_entries(const map<int, list<string> > hash_table)
         cout << "Hash index: " << mapEntry.first << endl; // use .first to access & output the hash index (key)
         cout << "Values: ";
         
-        for (auto value : mapEntry.second) // using another range-based for loop to access/iterate though the std::lists (string values/codes) associated with the hash index by using .second
+        for (auto value : mapEntry.second) // using an inner range-based for loop to access/iterate though the std::lists (which contain the string values/codes) associated with each hash index by using .second
         {
             cout << value << " "; // output the string values/codes associated with the hash index/key
         }
@@ -167,22 +167,23 @@ void print_map_entries(const map<int, list<string> > hash_table)
         cout << endl;
         mapEntryCounter++; // increment the counter, to keep a correct track of the # of map entries being displayed
 
-        if (mapEntryCounter == MAP_ENTRY_NUM) // only display the first 100 (MAP_ENTRY_NUM) map entries and then break from the loop
+        // only display the first 100 (MAP_ENTRY_NUM) map entries and then break from the loop
+        if (mapEntryCounter == MAP_ENTRY_NUM)
             break;
     }
 }
 
-// void search_for_key(const map<int, list<string> > hash_table) function header
-// DESCRIPTION: this function will take a user-entered key (string/code) and search for it in the map
+// void search_for_key(const map<int, list<string>> hash_table) function header
+// DESCRIPTION: this function will take a user-entered key (string/code) and search for it in the hash table
 // - the user will be notified if the key was found or not
-// ARGUMENTS: const map<int, list<string> > hash_table, which is the hash table data structure
+// ARGUMENTS: const map<int, list<string>> hash_table, which is the hash table data structure
 // - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
 // - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
 // - using const because the map itself will not be modified in this function
 // RETURNS: nothing, void function
-void search_for_key(const map<int, list<string> > hash_table)
+void search_for_key(const map<int, list<string>> hash_table)
 {
-    string userKey; // will hold user input for the key they would like to search for
+    string userKey; // will hold user input for the key (string/code) they would like to search for
     // get user input - input validation is included to ensure the user does not leave the field blank
     do
     {
@@ -223,14 +224,14 @@ void search_for_key(const map<int, list<string> > hash_table)
         cout << "The key was not found." << endl;
 }
 
-// void add_key(map<int, list<string> >& hash_table) function header
+// void add_key(map<int, list<string>>& hash_table) function header
 // DESCRIPTION: this function will allow the user to add a key (string/code) to the hash table
-// ARGUMENTS: map<int, list<string> >& hash_table, which is the hash table data structure
+// ARGUMENTS: map<int, list<string>>& hash_table, which is the hash table data structure
 // - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
 // - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
 // - passing by reference because the map will be modified in this function
 // RETURNS: nothing, void function
-void add_key(map<int, list<string> >& hash_table)
+void add_key(map<int, list<string>>& hash_table)
 {
     string userKey; // will hold user input for the key they would like to add
     // get user input - input validation is included to ensure the user does not leave the field blank
@@ -252,14 +253,14 @@ void add_key(map<int, list<string> >& hash_table)
     cout << "The key has been added." << endl;
 }
 
-// void remove_key(map<int, list<string> >& hash_table) function header
+// void remove_key(map<int, list<string>>& hash_table) function header
 // DESCRIPTION: this function will allow the user to remove a key (string/code) from the hash table
-// ARGUMENTS: map<int, list<string> >& hash_table, which is the hash table data structure
+// ARGUMENTS: map<int, list<string>>& hash_table, which is the hash table data structure
 // - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
 // - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
 // - passing by reference because the map will be modified in this function
 // RETURNS: nothing, void function
-void remove_key(map<int, list<string> >& hash_table)
+void remove_key(map<int, list<string>>& hash_table)
 {
     string userKey; // will hold user input for the key they would like to remove
     // get user input - input validation is included to ensure the user does not leave the field blank
@@ -293,7 +294,7 @@ void remove_key(map<int, list<string> >& hash_table)
         if (key == userKey) // if the user-entered key matches a string/code in the list
         {
             cout << "The key has been found. Removal in progress..." << endl;
-            keyFound = true; // set the bool flag to true, to indicate that the key wanting to be removed for has been found
+            keyFound = true; // set the bool flag to true, to indicate that the key wanting to be removed has been found
             break; // exit the loop since the key has been found
         }
     }
@@ -317,15 +318,15 @@ void remove_key(map<int, list<string> >& hash_table)
     }
 }
 
-// void modify_key(map<int, list<string> >& hash_table) function header
+// void modify_key(map<int, list<string>>& hash_table) function header
 // DESCRIPTION: this function will allow the user to modify a key (string/code) in the hash table
 // - modification occurs by first removing the old key & then adding the new one
-// ARGUMENTS: map<int, list<string> >& hash_table, which is the hash table data structure
+// ARGUMENTS: map<int, list<string>>& hash_table, which is the hash table data structure
 // - the hash table data structure is an std::map, in which the key is an int value that represents the hash index
 // - & the value is an std::list, which will contain the strings/codes that map to a specific hash index
 // - passing by reference because the map will be modified in this function
 // RETURNS: nothing, void function
-void modify_key(map<int, list<string> >& hash_table)
+void modify_key(map<int, list<string>>& hash_table)
 {
     string userKey; // will hold user input for the key they would like to modify
     string userNewKey; // will hold user input for the new modified key they want to add
@@ -361,7 +362,7 @@ void modify_key(map<int, list<string> >& hash_table)
         if (key == userKey) // if the user-entered key matches a string/code in the list
         {
             cout << "The key has been successfully found & modification can occur..." << endl;
-            keyFound = true; // set the bool flag to true, to indicate that the key wanting to be removed for has been found
+            keyFound = true; // set the bool flag to true, to indicate that the key wanting to be modified has been found
             break; // exit the loop since the key has been found
         }
     }
@@ -393,4 +394,11 @@ void modify_key(map<int, list<string> >& hash_table)
     hash_table[newKeyHashIndex].push_back(userNewKey); // using .push_back() to add the user-entered key to the std::list that corresponds to its generated hash index
 
     cout << "The key has been modified." << endl;
+
+    // if the list is empty after key removal, this means we have to erase the hash index too, since no values are associated with it anymore
+    if (keyList.empty())
+    {
+        hash_table.erase(it); // use .erase to erase the hash index if the list is empty - this extra step ensures clean removal of the map key-value pairs
+        cout << "The old hash index has also been removed, since there are no values associated with it." << endl;
+    }
 }
